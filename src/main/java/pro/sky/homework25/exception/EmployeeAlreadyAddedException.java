@@ -1,8 +1,11 @@
 package pro.sky.homework25.exception;
 
-public class EmployeeAlreadyAddedException extends RuntimeException {
-    public EmployeeAlreadyAddedException(String message) {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-        super(message);
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class EmployeeAlreadyAddedException extends RuntimeException {
+    public EmployeeAlreadyAddedException() {
+        super();
     }
 }

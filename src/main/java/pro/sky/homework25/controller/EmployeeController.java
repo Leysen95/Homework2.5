@@ -9,6 +9,7 @@ import pro.sky.homework25.exception.EmployeeNotFoundException;
 import pro.sky.homework25.exception.EmployeeStorageIsFullException;
 import pro.sky.homework25.service.EmployeeService;
 
+import java.util.Collection;
 import java.util.Set;
 
 @RestController
@@ -20,38 +21,26 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Employee> addEmployee(@RequestParam String firstName,
-                                                @RequestParam String lastName) {
-        try {
-            return ResponseEntity.ok(employeeService.addEmployee(firstName,lastName));
-        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    @GetMapping("/add")
+    public Employee addEmployee(@RequestParam String firstName,
+                                @RequestParam String lastName) {
+        return employeeService.addEmployee(firstName,lastName);
     }
 
-    @DeleteMapping("/remove")
-    public ResponseEntity<Employee> removeEmployee(@RequestParam String firstName,
-                                                   @RequestParam String lastName) {
-        try {
-            return ResponseEntity.ok(employeeService.removeEmployee(firstName,lastName));
-        } catch (EmployeeNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    @GetMapping("/remove")
+    public Employee removeEmployee(@RequestParam String firstName,
+                                @RequestParam String lastName) {
+        return employeeService.removeEmployee(firstName,lastName);
     }
 
     @GetMapping("/find")
-    public ResponseEntity<Employee> findEmployee (@RequestParam String firstName,
-                                                  @RequestParam String lastName) {
-        try {
-            return ResponseEntity.ok(employeeService.findEmployee(firstName,lastName));
-        } catch (EmployeeNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    public Employee findEmployee(@RequestParam String firstName,
+                                @RequestParam String lastName) {
+        return employeeService.findEmployee(firstName,lastName);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Set<Employee>> getAllEmployees() {
-        return  ResponseEntity.ok(employeeService.getAllEmployees());
+    @GetMapping
+    public Collection<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 }

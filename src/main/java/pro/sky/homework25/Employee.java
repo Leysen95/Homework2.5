@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Employee {
 
-    private String lastName;
+    private final String lastName;
 
-    private String firstName;
+    private final String firstName;
 
     public Employee(String lastName, String firstName) {
         this.lastName = lastName;
